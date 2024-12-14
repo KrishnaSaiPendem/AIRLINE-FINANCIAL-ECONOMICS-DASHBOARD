@@ -59,9 +59,8 @@ sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64
 sudo yum install ./google-chrome-stable_current_x86_64.rpm -y
 ```
 
-###Step 4:Install Python Packages
+### Step 4: Install Python Package
 Install the required Python packages using pip:
 ```bash
 pip3 install selenium webdriver-manager yfinance==0.2.44 pandas boto3
-
-
+```
