@@ -1,47 +1,105 @@
 # Airline Data and Stock Data Download
-This part of the repository contains Python, shell scripts and instructions for setting up an environment to extract, transform and load airline data and stock market trends data in Amazon S3 bucket for use in Machine Learning model building and dashboard. The project utilizes tools like `selenium`, `yfinance`, and `pandas` for data extraction and processing.
+
+This repository contains Python scripts, shell scripts, and instructions to set up an environment for extracting, transforming, and loading airline data and stock market trends data into an Amazon S3 bucket. These datasets can be used for building Machine Learning models and dashboards. The project leverages tools like `selenium`, `yfinance`, and `pandas` for data extraction and processing.
+
+---
 
 ## Table of Contents
-- [Automation Overview](#project-overview)
+- [Automation Overview](#automation-overview)
 - [Prerequisites](#prerequisites)
 - [Setup Instructions](#setup-instructions)
   - [Step 1: Clone the Repository](#step-1-clone-the-repository)
   - [Step 2: Update System Packages](#step-2-update-system-packages)
   - [Step 3: Install Required Tools](#step-3-install-required-tools)
   - [Step 4: Install Python Packages](#step-4-install-python-packages)
-  - [Step 5: Set Up the Project Directory](#step-5-set-up-the-project-directory)
-  - [Step 6: Write and Run Scripts](#step-6-write-and-run-scripts)
-  - [Step 7: Save and Analyze Data](#step-7-save-and-analyze-data)
+  - [Step 5: Run the Scripts](#step-5-run-the-scripts)
+  - [Step 6: Copy Files to S3](#step-6-copy-files-to-s3)
+  - [Step 7: Set Up AWS Glue Jobs](#step-7-set-up-aws-glue-jobs)
 - [Directory Structure](#directory-structure)
-- [Troubleshooting](#troubleshooting)
 - [License](#license)
 
-## Automation Overview
-The goal of this part is to:
-1. Pull airline-related data from various sources.
-2. Retrieve stock data for analysis using Python.
-3. Save the processed data for further analysis.
+---
 
-The project is designed to run on an Amazon EC2 instance.
+## Automation Overview
+
+The goals of this project are:
+1. To extract airline data from various sources.
+2. To retrieve stock market data for analysis using Python.
+3. To store processed data for further analysis in an S3 bucket.
+
+The automation is designed to run on an Amazon EC2 instance with Amazon Linux 2023.
+
+---
 
 ## Prerequisites
-Before you begin, ensure you have the following:
-- An Amazon EC2 instance (Amazon Linux 2023).
+
+Before starting, ensure you have the following:
+- An Amazon EC2 instance running Amazon Linux 2023.
 - Python 3.9 or higher installed on the instance.
-- Basic knowledge of Python and Linux commands.
-- AWS S3 buckets set up to copy files
+- AWS CLI configured with proper credentials and permissions to interact with S3.
+- Basic knowledge of Python, shell scripting, and Linux commands.
+- An AWS S3 bucket for storing processed files.
 
 ---
 
 ## Setup Instructions
 
 ### Step 1: Clone the Repository
-Clone this repository to your EC2 instance:
+Clone the repository to your EC2 instance:
 ```bash
 git clone https://github.com/your-username/airline-data-analysis.git
 cd airline-data-analysis
 ```
-Following files show be downloaded
+
+### Step 2: Update System Packages
+Update the system packages to ensure you have the latest versions:
+```bash
+sudo dnf update -y
+```
+
+### Step 3: Install Required Tools
+1. **Install pip**:
+```bash
+sudo yum install python3-pip -y
+```
+
+2. **Install Google Chrome for EC2**:
+```bash
+sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+sudo yum install ./google-chrome-stable_current_x86_64.rpm -y
+```
+
+### Step 4: Install Python Packages
+Install the necessary Python libraries using `pip`:
+```bash
+pip3 install selenium webdriver-manager yfinance==0.2.44 pandas boto3
+```
+
+### Step 5: Run the Scripts
+Execute the Python scripts to download the required data:
+1. **Run the airline data script**:
+```bash
+python3 automation/btsdatapull.py
+```
+
+2. **Run the stock data script**:
+```bash
+python3 automation/stockdatapull.py
+```
+
+### Step 6: Copy Files to S3
+Use the shell script to upload the downloaded files to your S3 bucket:
+```bash
+bash automation/s3_upload.sh
+```
+After successful execution, the files will be uploaded to the specified S3 bucket.
+
+---
+
+## Directory Structure
+
+After running the scripts, the directory structure should look like this:
+
 ```bash
 airline-data-analysis/
 ├── automation/
@@ -49,77 +107,49 @@ airline-data-analysis/
 │   ├── stockdatapull.py
 │   ├── s3_upload.sh
 │   ├── AWS Glue ETL Job for Form 41 Data Processing.py
-│   ├── 
+│   ├── AWS Glue ETL Job for DataCleanAggregate.py
+│   ├───data/
+│   │   ├── airline_stock_data.csv
+│   │   ├── stock_data_collection.log
+│   ├───downloads/
+│   │   ├── T_F41SCHEDULE_B1.csv
+│   │   ├── T_F41SCHEDULE_B11.csv
+│   │   ├── ...
+│   │   ├── T_SCHEDULE_T2.csv
 ```
-### Step 2: Update System Packages
-Update the system packages on your EC2 instance to ensure you have the latest versions:
-```bash
-sudo dnf update -y
-```
-### Step 3: Install Required Tools
-Install the necessary tools for Python development and browser automation:
-1. Install pip
-```bash
-sudo yum install python3-pip -y
-```
-2. Install Google Chrome on EC2
-```
-sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
-sudo yum install ./google-chrome-stable_current_x86_64.rpm -y
-```
-
-### Step 4: Install Python Package
-Install the required Python packages using pip:
-```bash
-pip3 install selenium webdriver-manager yfinance==0.2.44 pandas boto3
-```
-### Step 5: Run the scripts to dowload the files
-Clone this repository to your EC2 instance:
-```bash
-python3 btsdatapull.py
-python3 stockdatapull.py
-```
-
-Upon succesful completion the folder structure show be similar to below, where the downloaded data are in downloads and data folders.
-```bash
-airline-data-analysis/
-├── automation/
-│   ├── btsdatapull.py
-│   ├── stockdatapull.py
-│   ├── s3_upload.sh
-|   ├───data
-│   |   ├── airline_stock_data.csv
-│   |   ├── stock_data_collection.log
-|   ├───downloads
-│   |   ├── T_F41SCHEDULE_B1.csv
-│   |   ├── T_F41SCHEDULE_B11.csv
-│   |   ├── T_F41SCHEDULE_B43.csv
-│   |   ├── T_F41SCHEDULE_P10.csv
-│   |   ├── T_F41SCHEDULE_P11.csv
-│   |   ├── T_F41SCHEDULE_P12.csv
-│   |   ├── T_F41SCHEDULE_P12A.csv
-│   |   ├── T_F41SCHEDULE_P1A_EMP.csv
-│   |   ├── T_F41SCHEDULE_P51.csv
-│   |   ├── T_F41SCHEDULE_P52.csv
-│   |   ├── T_F41SCHEDULE_P6.csv
-│   |   ├── T_F41SCHEDULE_P7.csv
-│   |   ├── T_SCHEDULE_T1.csv
-│   |   ├── T_SCHEDULE_T2.csv
-```
-### Step 6: Copy Downloaded Files from EC2 to S3 Bucket.
-Run the below command to execute the shell script to copy downloaded files form EC2 to S3 buckets
-```bash
-bash s3_upload.sh
-```
-Upon successful completion, the downloaded files should be copied to the S3 bucket named `airline-dashboard-project-data`, as defined in the `BUCKET` variable.
 
 ### Local Source Folders
 1. **Form 41 Data**:
-   - Source: `/home/ec2-user/automation/downloads/`
+   - Source: `automation/downloads/`
    - Destination: `s3://airline-dashboard-project-data/automation/form41/`
 
 2. **Stock Data**:
-   - Source: `/home/ec2-user/automation/data/airline_stock_data.csv`
+   - Source: `automation/data/airline_stock_data.csv`
    - Destination: `s3://airline-dashboard-project-data/automation/stockdata/`
 
-### Step 7: Set Up AWS Glue Jobs to Clean and Aggregate Data
+---
+
+### Step 7: Set Up AWS Glue Jobs
+Set up two AWS Glue ETL jobs using the provided scripts:
+1. **Form 41 Data Processing**:
+   - Script: `automation/AWS Glue ETL Job for Form 41 Data Processing.py`
+
+2. **Data Cleaning and Aggregation**:
+   - Script: `automation/AWS Glue ETL Job for DataCleanAggregate.py`
+
+Run the jobs in sequence:
+1. Execute the Form 41 Data Processing job.
+2. After completion, run the Data Cleaning and Aggregation job.
+
+The cleaned and aggregated data will be available at:
+```
+s3://airline-dashboard-project-data/automation/merged_airline_data/
+```
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+---
