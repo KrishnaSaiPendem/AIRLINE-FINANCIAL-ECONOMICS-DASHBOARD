@@ -41,7 +41,14 @@ Clone this repository to your EC2 instance:
 git clone https://github.com/your-username/airline-data-analysis.git
 cd airline-data-analysis
 ```
-
+Following files show be downloaded
+```bash
+airline-data-analysis/
+├── automation/
+│   ├── btsdatapull.py
+│   ├── stockdatapull.py
+│   ├── s3_upload.sh
+```
 ### Step 2: Update System Packages
 Update the system packages on your EC2 instance to ensure you have the latest versions:
 ```bash
@@ -64,3 +71,36 @@ Install the required Python packages using pip:
 ```bash
 pip3 install selenium webdriver-manager yfinance==0.2.44 pandas boto3
 ```
+### Step 5: Run the scripts to dowload the files
+Clone this repository to your EC2 instance:
+```bash
+python3 btsdatapull.py
+python3 stockdatapull.py
+```
+
+Upon succesful completion the folder structure show be similar to below, where the downloaded data are in downloads and data folders.
+```bash
+airline-data-analysis/
+├── automation/
+│   ├── btsdatapull.py
+│   ├── stockdatapull.py
+│   ├── s3_upload.sh
+|   ├───data
+│   |   ├── airline_stock_data.csv
+│   |   ├── stock_data_collection.log
+|   ├───downloads
+│   |   ├── T_F41SCHEDULE_B1.csv
+│   |   ├── T_F41SCHEDULE_B11.csv
+│   |   ├── T_F41SCHEDULE_B43.csv
+│   |   ├── T_F41SCHEDULE_P10.csv
+│   |   ├── T_F41SCHEDULE_P11.csv
+│   |   ├── T_F41SCHEDULE_P12.csv
+│   |   ├── T_F41SCHEDULE_P12A.csv
+│   |   ├── T_F41SCHEDULE_P1A_EMP.csv
+│   |   ├── T_F41SCHEDULE_P51.csv
+│   |   ├── T_F41SCHEDULE_P52.csv
+│   |   ├── T_F41SCHEDULE_P6.csv
+│   |   ├── T_F41SCHEDULE_P7.csv
+│   |   ├── T_SCHEDULE_T1.csv
+│   |   ├── T_SCHEDULE_T2.csv
+```bash
