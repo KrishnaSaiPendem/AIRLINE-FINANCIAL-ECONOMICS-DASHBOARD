@@ -103,4 +103,21 @@ airline-data-analysis/
 │   |   ├── T_F41SCHEDULE_P7.csv
 │   |   ├── T_SCHEDULE_T1.csv
 │   |   ├── T_SCHEDULE_T2.csv
+```
+### Step 6: Copy Downloaded Files from EC2 to S3 Bucket.
+Run the below command to execute the shell script to copy downloaded files form EC2 to S3 buckets
 ```bash
+bash s3_upload.sh
+```
+Upon successful completion, the downloaded files should be copied to the S3 bucket named `airline-dashboard-project-data`, as defined in the `BUCKET` variable.
+
+### Local Source Folders
+1. **Form 41 Data**:
+   - Source: `/home/ec2-user/automation/downloads/`
+   - Destination: `s3://airline-dashboard-project-data/automation/form41/`
+
+2. **Stock Data**:
+   - Source: `/home/ec2-user/automation/data/airline_stock_data.csv`
+   - Destination: `s3://airline-dashboard-project-data/automation/stockdata/`
+
+### Step 7: Set Up AWS Glue Jobs to Clean and Aggregate Data
