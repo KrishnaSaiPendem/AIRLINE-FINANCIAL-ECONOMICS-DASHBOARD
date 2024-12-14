@@ -22,7 +22,7 @@ This repository contains Python scripts, shell scripts, and instructions to set 
 
 ## Automation Overview
 
-The goals of this project are:
+The goals of this part of the project are:
 1. To extract airline data from various sources.
 2. To retrieve stock market data for analysis using Python.
 3. To store processed data for further analysis in an S3 bucket.
