@@ -1,6 +1,5 @@
-# Airline Data and Stock Analysis Project
-
-This repository contains Python scripts and instructions for setting up an environment to pull and analyze airline data and stock market trends. The project utilizes tools like `selenium`, `yfinance`, and `pandas` for data extraction and processing.
+# Airline Data and Stock Data Download
+This part of the repository contains Python, shell scripts and instructions for setting up an environment to extract, transform and load airline data and stock market trends data in Amazon S3 bucket for use in Machine Learning model building and dashboard. The project utilizes tools like `selenium`, `yfinance`, and `pandas` for data extraction and processing.
 
 ## Table of Contents
 - [Automation Overview](#project-overview)
@@ -30,6 +29,7 @@ Before you begin, ensure you have the following:
 - An Amazon EC2 instance (Amazon Linux 2023).
 - Python 3.9 or higher installed on the instance.
 - Basic knowledge of Python and Linux commands.
+- AWS S3 buckets set up to copy files
 
 ---
 
@@ -40,3 +40,28 @@ Clone this repository to your EC2 instance:
 ```bash
 git clone https://github.com/your-username/airline-data-analysis.git
 cd airline-data-analysis
+```
+
+### Step 2: Update System Packages
+Update the system packages on your EC2 instance to ensure you have the latest versions:
+```bash
+sudo dnf update -y
+```
+### Step 3: Install Required Tools
+Install the necessary tools for Python development and browser automation:
+1. Install pip
+```bash
+sudo yum install python3-pip -y
+```
+2. Install Google Chrome on EC2
+```
+sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+sudo yum install ./google-chrome-stable_current_x86_64.rpm -y
+```
+
+###Step 4:Install Python Packages
+Install the required Python packages using pip:
+```bash
+pip3 install selenium webdriver-manager yfinance==0.2.44 pandas boto3
+
+
