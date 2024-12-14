@@ -36,7 +36,7 @@ upload_to_s3() {
 
     # Upload form41 files
     log_message "Uploading files from downloads directory..."
-    if aws s3 cp /home/ec2-user/daen690/scripts/downloads/ \
+    if aws s3 cp /home/ec2-user/automation/downloads/ \
         "s3://${BUCKET}/${FORM41_PATH}" \
         --recursive \
         --profile daen690; then
@@ -48,7 +48,7 @@ upload_to_s3() {
 
     # Upload stock data
     log_message "Uploading stock data file..."
-    if aws s3 cp /home/ec2-user/daen690/scripts/data/airline_stock_data.csv \
+    if aws s3 cp /home/ec2-user/automation/data/airline_stock_data.csv \
         "s3://${BUCKET}/${STOCK_PATH}" \
         --profile daen690; then
         log_message "Successfully uploaded stock data file"
