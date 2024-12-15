@@ -1,0 +1,114 @@
+# Automated Data Cleaning and S3 Pipeline
+
+This repository contains a Python script for automated data cleaning and storage using AWS services. The script is designed to clean datasets, filter relevant data, and store the cleaned datasets into an Amazon S3 bucket. The process leverages AWS Lambda and SageMaker, providing a scalable and efficient ETL (Extract, Transform, Load) pipeline.
+
+---
+
+## Features
+
+- Automated Data Processing: The script is triggered automatically whenever new datasets are uploaded to a designated S3 bucket.
+- Data Cleaning:
+  - Handles missing values by removing columns exceeding a defined threshold.
+  - Detects and removes duplicate rows.
+  - Identifies and removes outliers using z-scores.
+  - Maps categorical values to human-readable descriptions.
+- AWS Integration:
+  - Utilizes AWS Lambda for automation.
+  - Runs the script in SageMaker for robust compute performance.
+- Output Storage: Cleaned datasets are stored in another S3 bucket for downstream use.
+
+---
+
+## Workflow
+
+1. Data Input: Datasets are uploaded to the input S3 bucket.
+2. Trigger: AWS Lambda automatically detects new files and triggers the cleaning process.
+3. Data Cleaning:
+   - Missing values exceeding a 50% threshold (except for protected columns) are removed.
+   - Duplicate rows are identified and dropped.
+   - Outliers are detected based on z-scores and removed.
+   - Categorical fields are mapped to readable descriptions.
+4. Output Storage: The cleaned datasets are uploaded to a target S3 bucket.
+
+---
+
+## Prerequisites
+
+1. AWS Account with the following services:
+   - S3 for input/output storage.
+   - Lambda for automation.
+   - SageMaker for running the script.
+2. Permissions:
+   - Access to the specified S3 buckets.
+   - Lambda and SageMaker execution roles with the required permissions.
+3. Libraries:
+   - Python 3.x
+   - `pandas`, `numpy`, `scipy`, and other data processing libraries.
+
+---
+
+## Installation
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo
+
+2. Set up your AWS credentials using the AWS CLI:
+   aws configure
+
+3.Ensure the required Python libraries are installed:
+  pip install pandas numpy scipy boto3
+
+## Configuration
+
+1. S3 Buckets:
+   - Input bucket: s3://your-input-bucket/
+   - Output bucket: s3://your-output-bucket/
+
+2. Lambda Function:
+   - Set up a Lambda trigger for the input S3 bucket.
+   - Link the Lambda function to the script using SageMaker.
+
+3. Protected Columns:
+   - Update the protected_columns list in the script as needed.
+
+4. Airlines of Interest:
+   - Modify the airlines_of_interest list to include specific airlines for filtering.
+
+
+## Usage
+
+   - Upload new datasets to the input S3 bucket (your-input-bucket).
+   - The script will automatically process the data and upload cleaned datasets to the output bucket (your-output-bucket).
+   - Use the cleaned data for analysis or further processing.
+
+
+## Example Code Snippet
+
+Here’s a glimpse of the cleaning process:
+
+''' # Drop columns exceeding the missing value threshold
+columns_to_drop = missing_percentage[(missing_percentage > 50) & (~missing_percentage.index.isin(protected_columns))].index
+b1 = b1.drop(columns=columns_to_drop)
+
+# Remove duplicate rows
+b1 = b1.drop_duplicates()
+
+# Map categorical values to descriptions
+b1['REGION'] = b1['REGION'].replace(region_mapping)
+b1["CARRIER_GROUP"] = b1["CARRIER_GROUP"].replace(carrier_group_mapping) '''
+
+
+## Expected Users
+
+    - Financial Analysts: To analyze cleaned and structured financial data.
+    - Data Engineers: To understand the ETL process and automate workflows.
+
+
+## Future Improvements
+
+    - Logging: Add detailed logging for better traceability.
+    - Monitoring: Integrate with AWS CloudWatch to monitor pipeline performance.
+    - Advanced Cleaning: Include more sophisticated techniques for data imputation and transformation.
+
