@@ -1,8 +1,7 @@
 # Airline Financial Dashboard
 
 This repository contains a web application that provides an in-depth analysis of the financial health and market performance of major U.S. airlines. The application combines an interactive React-based frontend with a Python Flask backend that utilizes machine learning models for stock price prediction.
- the webpage file is more than 200MB so we are sharing a drive link in which you will find all the code of the webpage's backend and front-end
-****   https://drive.google.com/file/d/1mnGBWcH92hCBOpMhHMHrIXXdUa6azq6S/view?usp=drive_link  ****
+
 ## Features
 
 ### Frontend (React)
