@@ -133,7 +133,7 @@ This repository contains a web application that provides an in-depth analysis of
 ---
 
 ## License
-This project is licensed under the MIT License.
+
 
 ---
 
