@@ -1,0 +1,130 @@
+Overview
+
+This project delivers five insightful dashboards built using Tableau, providing a comprehensive analysis of financial and operational data for U.S. airlines. Designed for financial analysts, stakeholders, and operational managers, the dashboards are built from 12 publicly available datasets to highlight trends, efficiency metrics, employee statistics, and financial performance.
+
+Purpose
+
+The dashboards aim to:
+
+Provide actionable insights for data-driven decision-making.
+Highlight critical metrics, such as revenue trends, cost efficiency, employee productivity, and airline capacity.
+Enhance operational and financial transparency for airlines.
+
+
+Dashboards Overview
+
+1. Financials Overview
+Key Insights:
+Operating revenue trends over time.
+Debt-to-equity ratio trends.
+Net income & profit margin analysis.
+Operating margin over time.
+Comparison of debt and cash.
+Revenue and expenses breakdown.
+Visualizations: Line charts, bar charts, and stacked bar charts.
+2. Employee & Labor Dashboard
+Key Insights:
+Revenue per employee and cost per employee trends.
+Employee count trends (full-time, part-time, and total).
+Turnover and retention ratios.
+Role distribution across employees.
+Salaries and benefits breakdown.
+Visualizations: Line charts, pie charts, and stacked bar charts.
+3. Airline Capacity & Efficiency Dashboard
+Key Insights:
+Available Seat Miles (ASM) vs. Revenue Passenger Miles (RPM).
+CASM (Cost per Available Seat Mile).
+PRASM (Passenger Revenue per Seat Mile).
+CASM vs. PRASM comparison.
+Passenger Load Factor (PLF) trends.
+Visualizations: Line charts and comparison plots.
+4. Aircraft and Passenger Service Expense Insights
+Key Insights:
+Total operating expenses over time.
+Breakdown of operating expenses by type.
+Passenger service, advertising, and aircraft service expense breakdowns.
+Total operating expense vs. other expenses.
+Visualizations: Line charts and bar charts.
+5. Fuel Cost & Consumption Dashboard
+Key Insights:
+Fuel costs and consumption (scheduled vs. unscheduled services).
+Fuel consumption trends and cost per gallon.
+Domestic vs. international fuel consumption breakdowns.
+Visualizations: Bar charts and line charts.
+Data Sources
+
+The dashboards are built using Form 41 datasets, publicly available and curated by the U.S. Department of Transportation. Key datasets include:
+
+https://www.transtats.bts.gov/databases.asp?Z1qr_VQ=E&Z1qr_Qr5p=N8vn6v10&f7owrp6_VQF=D
+
+Schedule B-1: Quarterly operating balance sheet for large airlines.
+Schedule B-1.1: Semi-annual balance sheet for smaller airlines.
+Schedule B-43: Annual inventory of airframes and engines.
+Schedule P-1(a): Monthly air carrier employment reports.
+Schedule P-1.1: Semi-annual profit and loss for smaller airlines.
+Schedule P-1.2: Quarterly profit and loss for larger airlines.
+Schedule P-10: Annual employee statistics by labor category.
+Schedule P-12(a): Monthly fuel cost and consumption by carrier.
+Schedule P-5.1: Aircraft operating expenses for regional carriers.
+Schedule P-5.2: Detailed quarterly operating expenses for large airlines.
+Schedule P-6: Quarterly operating expenses by objective grouping.
+Schedule P-7: Quarterly operating expenses by functional grouping.
+T-1: Traffic and capacity summary by service class.
+T-2: Traffic and capacity statistics by aircraft type.
+
+Data Cleaning Process
+
+The same cleaning process from the data cleaning script was used for preparing the datasets:
+
+Missing Values: Columns with more than 50% missing values were dropped (excluding protected columns like key metrics).
+Duplicates: Duplicate rows were identified and removed.
+Outliers: Detected using z-scores and removed.
+Data Mapping: Replaced codes and IDs with meaningful labels for better interpretability.
+Tableau Features
+
+Key Tableau features used to build the dashboards:
+
+Interactive Filters: Enables users to filter data by airline, time period, or region.
+Calculated Fields: Custom calculations for metrics like CASM, PRASM, and PLF.
+Drill-down Actions: Allows users to explore data at a more granular level.
+Storytelling: Each dashboard is designed with a clear narrative flow, guiding users to key insights.
+Responsive Design: Dashboards are optimized for various screen sizes, including desktops and tablets.
+Deployment
+
+Hosted on Tableau Public: View Dashboards.
+https://public.tableau.com/app/profile/krishna.sai.pendem/vizzes
+
+Intended Users and Use Cases
+
+Financial Analysts: Analyze profitability, revenue trends, and expense breakdowns.
+Stakeholders: Monitor performance metrics for strategic decision-making.
+Operational Managers: Track operational efficiency, employee productivity, and airline capacity.
+Challenges and Solutions
+
+Data Inconsistency:
+Addressed by cleaning and standardizing the datasets using Python and Tableau Prep.
+Performance Optimization:
+Optimized calculated fields and reduced dataset size for faster Tableau rendering.
+Complex Metrics:
+Simplified calculations by creating calculated fields in Tableau for complex KPIs.
+Future Improvements
+
+Integrate predictive analytics for forecasting revenue and expenses.
+Add real-time data integration to refresh dashboards dynamically.
+Enhance interactivity with advanced Tableau features like animations.
+How to Use This Project
+
+Download the Tableau Workbook: https://public.tableau.com/app/profile/krishna.sai.pendem/vizzes
+Open in Tableau Desktop: Ensure Tableau version 2022.3 or later.
+Explore the Dashboards:
+Use filters and parameters to interact with the visualizations.
+Drill down into specific metrics for deeper insights.
+
+License
+
+This project is licensed under the MIT License.
+
+Contributing
+
+Contributions are welcome! Please fork the repository, create a feature branch, and submit a pull request.
+
